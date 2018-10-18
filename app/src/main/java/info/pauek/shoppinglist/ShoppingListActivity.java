@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -58,5 +59,9 @@ public class ShoppingListActivity extends AppCompatActivity {
                 Toast.makeText(ShoppingListActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void onAddItem(View view) {
+        items.add(new ShoppingItem(edit_box.getText().toString(), false));
     }
 }
