@@ -14,6 +14,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ItemHolder> {
     List<ShoppingItem> items;
     private OnClickListener onClickListener;
 
+
     public ShoppingListAdapter(Context context, List<ShoppingItem> items) {
         this.context = context;
         this.items = items;
@@ -43,4 +44,5 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ItemHolder> {
     public interface OnClickListener {
         void onClick(int position);
     }
+
 }

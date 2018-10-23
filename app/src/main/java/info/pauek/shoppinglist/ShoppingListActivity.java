@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -35,8 +38,8 @@ public class ShoppingListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shopping_list);
 
         items = new ArrayList<>();
-        items.add(new ShoppingItem("Potatoes", true));
-        items.add(new ShoppingItem("Toilet Paper", false));
+        // items.add(new ShoppingItem("Potatoes", true));
+        // items.add(new ShoppingItem("Toilet Paper", false));
 
         items_view = findViewById(R.id.items_view);
         btn_add = findViewById(R.id.btn_add);
@@ -61,7 +64,36 @@ public class ShoppingListActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.doc_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Toast.makeText(this, "Delete Selected", Toast.LENGTH_SHORT).show();
+
+        int i = 0;
+        while (items.size() > i)
+        {
+            if (items.get(i).isChecked())
+            {
+                items.remove(i);
+                adapter.notifyItemRemoved(i);
+            }
+            else
+            {
+                i++;
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     public void onAddItem(View view) {
         items.add(new ShoppingItem(edit_box.getText().toString(), false));
+        adapter.notifyItemInserted(items.size()-1);
     }
 }
