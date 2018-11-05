@@ -15,13 +15,11 @@ public class ItemHolder extends RecyclerView.ViewHolder {
 
     private TextView name_view;
     private CheckBox check_box;
-    private ImageButton item_delete;
 
-    public ItemHolder(@NonNull final View itemView, final ShoppingListAdapter.OnClickListener onClickListener) {
+    public ItemHolder(@NonNull final View itemView, final ShoppingListAdapter.OnClickListener onClickListener, final ShoppingListAdapter.OnLongClickListener onLongClickListener) {
         super(itemView);
         name_view = itemView.findViewById(R.id.name_view);
         check_box = itemView.findViewById(R.id.item_checkbox);
-        item_delete = itemView.findViewById(R.id.item_delete);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,12 +31,19 @@ public class ItemHolder extends RecyclerView.ViewHolder {
             }
         });
 
-        item_delete.setOnClickListener(new View.OnClickListener() {
+        itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
-                int pos = getAdapterPosition();
-                String msg = "Has eliminat: " + pos;
-                Log.i("info", msg);
+            public boolean onLongClick(View v) {
+                if (onLongClickListener != null)
+                {
+                    int position = getAdapterPosition();
+                    onLongClickListener.onLongClick(position);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         });
     }

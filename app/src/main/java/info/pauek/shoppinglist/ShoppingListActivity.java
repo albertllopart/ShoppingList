@@ -62,6 +62,15 @@ public class ShoppingListActivity extends AppCompatActivity {
                 Toast.makeText(ShoppingListActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
         });
+
+        adapter.setOnLongClickListener(new ShoppingListAdapter.OnLongClickListener() {
+            @Override
+            public void onLongClick(int position) {
+                items.remove(position);
+                adapter.notifyItemRemoved(position);
+                Toast.makeText(ShoppingListActivity.this, "Has eliminat un item", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -95,5 +104,10 @@ public class ShoppingListActivity extends AppCompatActivity {
     public void onAddItem(View view) {
         items.add(new ShoppingItem(edit_box.getText().toString(), false));
         adapter.notifyItemInserted(items.size()-1);
+    }
+
+    public void onDeleteItem(int pos){
+        items.remove(pos);
+        adapter.notifyItemRemoved(pos);
     }
 }
